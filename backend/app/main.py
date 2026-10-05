@@ -109,6 +109,10 @@ def retrieve_evidence_endpoint(query_req: EvidenceQuery):
         target_sources=query_req.target_sources
     )
 
+@app.get("/debug-frontend")
+def debug_frontend():
+    return {"path": str(FRONTEND_DIR), "exists": FRONTEND_DIR.exists()}
+
 from pathlib import Path
 from fastapi.staticfiles import StaticFiles
 
