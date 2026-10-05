@@ -109,6 +109,11 @@ def retrieve_evidence_endpoint(query_req: EvidenceQuery):
         target_sources=query_req.target_sources
     )
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+from pathlib import Path
+from fastapi.staticfiles import StaticFiles
+
+FRONTEND_DIR = Path(__file__).resolve().parents[2] / "frontend" / "dist"  # adjust to your build folder
+
+if FRONTEND_DIR.exists():
+    app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
+
